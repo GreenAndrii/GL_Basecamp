@@ -1,0 +1,14 @@
+---
+# Homework for GL Basecamp DevOps
+- name: Homework for GL Basecamp DevOps
+  become: yes
+  hosts: all  
+  tasks:
+    - name: invoke the role for `/etc/iaac` for hosts group `iaas`
+      include_role:
+        name: create_file_for_iaas_group
+      when: "'iaas' in group_names"
+   
+    - name: invoke the role for defining variable for all hosts
+      include_role:
+        name: define_content_as_variable

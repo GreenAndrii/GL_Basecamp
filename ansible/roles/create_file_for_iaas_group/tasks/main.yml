@@ -1,0 +1,8 @@
+---
+# tasks file for create_file_for_iaac_group
+
+- name: Creating an empty file `{{ path }}` with rigths `{{ mode }}`
+  file:
+    path: "{{ path }}"
+    mode: "{{ mode }}"
+    state: touch

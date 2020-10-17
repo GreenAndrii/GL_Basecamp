@@ -1,0 +1,10 @@
+---
+# tasks file for define_content_as_variable
+- name: define content of `{{ path }}` as variable
+  shell: cat "{{ path }}"
+  register: file_content
+
+- name: print registered variable
+  debug:
+    msg: "At the host {{ ansible_facts['nodename'] }} the value of {{ path }} is {{ file_content['stdout'] }}"
+  
