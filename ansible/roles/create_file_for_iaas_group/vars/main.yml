@@ -1,4 +1,2 @@
 ---
 # vars file for create_file_for_iaac_group
-path: "/etc/iaac"
-mode: "0500"

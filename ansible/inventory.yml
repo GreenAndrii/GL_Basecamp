@@ -1,22 +1,22 @@
 group_1:
   hosts:
     host_1:
-      ansible_host: 18.185.5.53
+      ansible_host: 18.184.33.31
 
 group_2:
   hosts:
     host_2:
-      ansible_host: 3.124.186.253
+      ansible_host: 54.93.32.229
 
 group_3:
   hosts:
     host_3:
-      ansible_host: 18.196.196.13
+      ansible_host: 18.184.222.194
 
 group_4:
   hosts:
     host_4:
-      ansible_host: 18.185.75.55
+      ansible_host: 52.29.116.232
 
 iaas:
   children:
@@ -26,4 +26,4 @@ iaas:
 all:
   vars:
     ansible_user: ubuntu
-    ansible_ssh_private_key_file: "/home/green/.aws/devops-eu-central-1.pem"
+    ansible_ssh_private_key_file: ".aws/basecamp.pem"

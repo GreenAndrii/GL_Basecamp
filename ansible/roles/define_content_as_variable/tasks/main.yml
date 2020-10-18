@@ -6,5 +6,5 @@
 
 - name: print registered variable
   debug:
-    msg: "At the host {{ ansible_facts['nodename'] }} the value of {{ path }} is {{ file_content['stdout'] }}"
+    msg: "At the host {{ ansible_facts['hostname'] }} the value of {{ path }} is {{ file_content['stdout'] }}"
   
