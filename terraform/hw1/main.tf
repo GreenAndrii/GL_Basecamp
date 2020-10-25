@@ -39,37 +39,14 @@ module "ec2" {
   subnet_id              = tolist(data.aws_subnet_ids.all.ids)[0]
   vpc_security_group_ids = ["sg-021bfd8e5a5d21433"]
 
-  # user_data = "curl https://ipv4.cloudns.net/api/dynamicURL/?q=MjkwMTQ1MDoyMDk4MTc1NzQ6MTE1ZDg4NDVlYTYzYTU4NmU4NzI5MDMxMjBiNmU5NjU1ZGY1YmI5ZDA5NGQ1OTM5NTA3NjZiN2FlMjlkNWRlOA"
-
-
   tags = {
     Terraform   = "true"
     Environment = "hw1"
   }
 }
 
-# module "flask_security_group"{
-# 	source = "terraform-aws-modules/security-group/aws"
-
-# 	name = "flask_aws_sg"
-# 	description = "AWS security group for microblog Flask project"
-# 	vpc_id = data.aws_vpc.default.id
-
-
-# }
-
-# module "http_sg" {
-#   source = "../../modules/http-80"
-
-#   name        = "http-sg"
-#   description = "Security group with HTTP ports open for everybody (IPv4 CIDR), egress ports are all world open"
-#   vpc_id      = data.aws_vpc.default.id
-
-#   ingress_cidr_blocks = ["0.0.0.0/0"]
-# }
-
-# generate Ansible hosts file
-resource "local_file" "hosts" {
+# generate Ansible inventory file
+resource "local_file" "inventory" {
   content = templatefile("${path.module}/templates/inventory.tpl",
     {
       hw1_stack = module.ec2.public_ip
