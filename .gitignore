@@ -1,5 +1,6 @@
 k8s/task 1.txt
 k8s/task 2.txt
-terraform/hw1/terraform.tfstate
-terraform/hw1/terraform.tfstate.backup
+terraform.tfstate
+terraform.tfstate.backup
 .terraform
+ansible/inventory.yml

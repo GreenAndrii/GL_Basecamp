@@ -11,3 +11,7 @@ variable "ssh_user" {
   description = "SSH user name to connect to your instance."
   default     = "ubuntu"
 }
+
+variable "instance_count" {
+	default = "4"
+}

@@ -1,19 +1,11 @@
 group_0:
   hosts:
     host_0:
-      ansible_host: 18.185.71.189
+      ansible_host: 3.127.147.95
 group_1:
   hosts:
     host_1:
-      ansible_host: 54.93.126.184
-group_2:
-  hosts:
-    host_2:
-      ansible_host: 18.156.171.196
-group_3:
-  hosts:
-    host_3:
-      ansible_host: 54.93.115.45
+      ansible_host: 54.93.99.155
 
 iaas:
   children:

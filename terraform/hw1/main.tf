@@ -31,7 +31,7 @@ module "ec2" {
   version = "~> 2.0"
 
   name           = "hw1_stack"
-  instance_count = 4
+  instance_count = var.instance_count
   # ami                  = "ami-04932daa2567651e7" # Ubuntu
   ami                    = data.aws_ami.latest-ubuntu.id
   instance_type          = "t2.micro"
@@ -55,6 +55,8 @@ resource "local_file" "inventory" {
       count = length(module.ec2.public_ip)
     }
   )
+  directory_permission = "0755"
+  file_permission      = "0644"
   filename = "../../ansible/inventory.yml"
 }
 
