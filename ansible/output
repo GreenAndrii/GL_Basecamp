@@ -1,0 +1,39 @@
+PLAY [Homework for GL Basecamp DevOps] ****************************************************************************************************************************************************
+
+TASK [Gathering Facts] ********************************************************************************************************************************************************************
+ok: [host_2]
+ok: [host_1]
+ok: [host_3]
+ok: [host_0]
+
+TASK [create_file_for_iaas_group : Creating an empty file `/etc/iaac` with rigths `0500`] *************************************************************************************************
+skipping: [host_2]
+skipping: [host_3]
+changed: [host_1]
+changed: [host_0]
+
+TASK [define_content_as_variable : define content of `/etc/issue` as variable] ************************************************************************************************************
+changed: [host_2]
+changed: [host_1]
+changed: [host_0]
+changed: [host_3]
+
+TASK [define_content_as_variable : print registered variable] *****************************************************************************************************************************
+ok: [host_2] => {
+    "msg": "At the host ip-172-31-45-206 the value of /etc/issue is Ubuntu 20.04.1 LTS \\n \\l"
+}
+ok: [host_3] => {
+    "msg": "At the host ip-172-31-37-187 the value of /etc/issue is Ubuntu 20.04.1 LTS \\n \\l"
+}
+ok: [host_0] => {
+    "msg": "At the host ip-172-31-43-126 the value of /etc/issue is Ubuntu 20.04.1 LTS \\n \\l"
+}
+ok: [host_1] => {
+    "msg": "At the host ip-172-31-39-46 the value of /etc/issue is Ubuntu 20.04.1 LTS \\n \\l"
+}
+
+PLAY RECAP ********************************************************************************************************************************************************************************
+host_0                     : ok=4    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+host_1                     : ok=4    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+host_2                     : ok=3    changed=1    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0   
+host_3                     : ok=3    changed=1    unreachable=0    failed=0    skipped=1    rescued=0    ignored=0 
