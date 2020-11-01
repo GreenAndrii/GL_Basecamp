@@ -7,19 +7,23 @@ import os
 class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
 
     def do_GET(self):
-        if self.path.endswith('healthz'):
+        print(self.path)
+        if self.path == '/healthz':
             self.send_response(200)
             self.end_headers()
             self.wfile.write(b'200 OK\n')
-        elif self.path.endswith('readinez'):
+        elif self.path == '/readinez':
             self.send_response(200)
             self.end_headers()
             self.wfile.write((gethostbyname(gethostname()) + '\n').encode())
-        else:
+        elif self.path == '/':
             self.send_response(200)
             self.end_headers()
-            self.wfile.write(b'Version:v6.0.0\n')
-
+            self.wfile.write(b'Version:v7.0.0\n')
+        else:
+            self.send_response(404)
+            self.end_headers()
+            self.wfile.write(b'Page not found\n')
 
 def run():
   server_port = int(os.getenv('SERVER_PORT'))

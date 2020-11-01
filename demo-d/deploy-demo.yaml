@@ -23,7 +23,7 @@ spec:
         id: hw2                                                 
     spec:                                            
       containers:                      
-      - image: andriibondar/single-line-server:v5.0.0       
+      - image: andriibondar/single-line-server:v7.0.0       
         imagePullPolicy: Always                       
         name: demo-d 
         
@@ -31,7 +31,7 @@ spec:
           httpGet:
             path: /healthz
             port: 8000
-          initialDelaySeconds: 5
+          initialDelaySeconds: 10
           timeoutSeconds: 1
           periodSeconds: 10
           failureThreshold: 3
@@ -40,7 +40,7 @@ spec:
           httpGet:
             path: /readinez
             port: 8000
-          periodSeconds: 2
+          periodSeconds: 10
           initialDelaySeconds: 10
           failureThreshold: 3
           successThreshold: 1 
