@@ -18,7 +18,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         else:
             self.send_response(200)
             self.end_headers()
-            self.wfile.write(b'Version:v5.0.0\n')
+            self.wfile.write(b'Version:v6.0.0\n')
 
 
 def run():
