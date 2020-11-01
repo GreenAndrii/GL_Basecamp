@@ -2,9 +2,8 @@ FROM python:3.8-alpine as base
 
 FROM base as builder
 WORKDIR /install
-COPY requirements.txt  /requirements.txt
 COPY requirements.txt /requirements.txt
-RUN pip install --prefix=/install -r /requirements.txt
+RUN pip install --prefix=/install --no-warn-script-location -r /requirements.txt
 
 FROM base
 ENV SERVER_PORT=8000

@@ -1,6 +1,6 @@
-k8s/task 1.txt
-k8s/task 2.txt
-terraform.tfstate
-terraform.tfstate.backup
+k8s/task*.txt
+terraform.tfstate*
 .terraform
 ansible/inventory.yml
+venv/
+.vscode

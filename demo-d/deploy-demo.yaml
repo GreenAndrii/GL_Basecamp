@@ -1,0 +1,56 @@
+---                                                       
+apiVersion: apps/v1                        
+kind: Deployment                              
+metadata:                                 
+  labels:                                                               
+    id: hw2                       
+  name: demo-d                                                             
+  namespace: demo                                                                         
+spec:
+  replicas: 4                                                                                                                                                                          
+  selector:                                                     
+    matchLabels:                                                                                                                                                                           
+      app: demo-d                                           
+  strategy:                                                 
+    rollingUpdate:                                                      
+      maxSurge: 25%                    
+      maxUnavailable: 25%                           
+    type: RollingUpdate                                     
+  template:                                                     
+    metadata:                                               
+      labels:                                               
+        app: demo-d                                         
+        id: hw2                                                 
+    spec:                                            
+      containers:                      
+      - image: andriibondar/single-line-server:v5.0.0       
+        imagePullPolicy: Always                       
+        name: demo-d 
+        
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8000
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
+          periodSeconds: 10
+          failureThreshold: 3
+
+        readinessProbe:
+          httpGet:
+            path: /readinez
+            port: 8000
+          periodSeconds: 2
+          initialDelaySeconds: 10
+          failureThreshold: 3
+          successThreshold: 1 
+
+        ports:                                              
+        - containerPort: 8000              
+          protocol: TCP 
+          name: http                                    
+        resources:                                          
+          limits:                                           
+            cpu: 100m                                                   
+            memory: 128Mi                     
+      restartPolicy: Always                                             
