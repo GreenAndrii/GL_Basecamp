@@ -1,3 +1,12 @@
+# k3s default infrastucture
+/*
+- add VPC
+- add subnet
+- add SG
++ add k3s_master
++ add k3s_worker(s)
+*/
+
 provider "aws" {
   region = var.region
 
@@ -26,23 +35,39 @@ data "aws_ami" "latest-ubuntu" {
   }
 }
 
-module "ec2" {
+module "k3s_master" {
   source  = "terraform-aws-modules/ec2-instance/aws"
   version = "~> 2.0"
 
-  name           = "hw2_stack"
-  instance_count = var.instance_count
-  # ami                  = "ami-04932daa2567651e7" # Ubuntu
+  name                   = "k3s_master"
+  instance_count         = 1
+  # ami                  = "ami-0c960b947cbb2dd16" # Ubuntu
   ami                    = data.aws_ami.latest-ubuntu.id
   instance_type          = "t2.micro"
   key_name               = var.key_name
   subnet_id              = tolist(data.aws_subnet_ids.all.ids)[0]
   vpc_security_group_ids = ["sg-021bfd8e5a5d21433"]
-
   tags = {
     Terraform   = "true"
-    Environment = "hw2"
+    Environment = "k3s"
   }
 }
 
+module "k3s_worker" {
+  source  = "terraform-aws-modules/ec2-instance/aws"
+  version = "~> 2.0"
+  depends_on = [module.k3s_master]
 
+  name           = "k3s_worker"
+  instance_count = var.instance_count
+  # ami                  = "ami-0c960b947cbb2dd16" # Ubuntu
+  ami                    = data.aws_ami.latest-ubuntu.id
+  instance_type          = "t2.micro"
+  key_name               = var.key_name
+  subnet_id              = tolist(data.aws_subnet_ids.all.ids)[0]
+  vpc_security_group_ids = ["sg-021bfd8e5a5d21433"]
+  tags = {
+    Terraform   = "true"
+    Environment = "k3s"
+  }
+}
