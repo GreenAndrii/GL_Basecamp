@@ -18,7 +18,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         elif self.path == '/':
             self.send_response(200)
             self.end_headers()
-            self.wfile.write(b'Version:v7.0.0\n')
+            self.wfile.write(b'Version:v4.0.0\n')
         else:
             self.send_response(404)
             self.end_headers()

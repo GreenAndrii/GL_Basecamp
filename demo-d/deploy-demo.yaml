@@ -23,7 +23,7 @@ spec:
         id: hw2                                                 
     spec:                                            
       containers:                      
-      - image: andriibondar/single-line-server:v7.0.0       
+      - image: andriibondar/single-line-server:v4.0.0       
         imagePullPolicy: Always                       
         name: demo-d 
         
@@ -47,7 +47,6 @@ spec:
 
         ports:                                              
         - containerPort: 8000              
-          protocol: TCP 
           name: http                                    
         resources:                                          
           limits:                                           
