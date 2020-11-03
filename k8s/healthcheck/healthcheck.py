@@ -25,9 +25,9 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
             self.wfile.write(b'Page not found\n')
 
 def run():
-  server_port = int(os.getenv('SERVER_PORT'))
-  print("HTTP server started at port: " + str(server_port))
-  httpd = HTTPServer(('0.0.0.0', server_port), SimpleHTTPRequestHandler)
+  server_port = os.getenv('SERVER_PORT')
+  print("HTTP server started at port: " + server_port)
+  httpd = HTTPServer(('0.0.0.0', int(server_port)), SimpleHTTPRequestHandler)
   httpd.serve_forever()
 
 

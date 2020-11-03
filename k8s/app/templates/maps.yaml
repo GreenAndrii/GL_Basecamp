@@ -1,0 +1,13 @@
+---
+apiVersion: getambassador.io/v2
+kind:  Mapping
+metadata:
+  name:  {{ include "app.fullname" . }}
+spec:
+  prefix: /
+  service: {{ include "app.fullname" . }}.demo
+  # add headers for version 2
+  headers:
+    version: v2
+  # add weight condition
+  {{ if gt .Values.canary.weight 0 }}weight: {{ .Values.canary.weight }} {{ end }}
