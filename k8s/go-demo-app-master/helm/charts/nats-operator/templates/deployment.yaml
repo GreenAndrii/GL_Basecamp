@@ -33,7 +33,7 @@ spec:
       containers:
       - name: nats-operator
         image: {{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}
-#        imagePullPolicy: {{ .Values.pullPolicy  }}
+        imagePullPolicy: {{ .Values.pullPolicy  }}
         {{- if .Values.clusterScoped }}
         args:
         - nats-operator
