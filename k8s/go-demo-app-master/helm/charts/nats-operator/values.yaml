@@ -1,3 +1,4 @@
+replicaCount: 1
 ## Specify if RBAC authorization is enabled.
 ## ref: https://kubernetes.io/docs/reference/access-authn-authz/rbac/
 ##
