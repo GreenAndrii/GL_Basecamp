@@ -1,0 +1,16 @@
+---
+apiVersion: kibana.k8s.elastic.co/v1
+kind: Kibana
+metadata:
+  name: kibana
+  namespace: logging
+spec:
+  version: 7.9.3
+  server.ssl.enabled: true
+  http:
+    tls:
+      selfSignedCertificate:
+        disabled: true
+  count: 1
+  elasticsearchRef:
+    name: demo

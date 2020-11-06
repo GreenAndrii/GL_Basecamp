@@ -6,3 +6,4 @@
   roles:
     - { role: create_file_for_iaas_group, when: "'iaas' in group_names" }
     - define_content_as_variable
+    - password_validate
