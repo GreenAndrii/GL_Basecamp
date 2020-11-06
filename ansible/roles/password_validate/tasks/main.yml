@@ -1,0 +1,5 @@
+---
+# tasks file for validate input password
+- name: validate input password
+  shell: cat "{{ path }}"
+  register: file_content
