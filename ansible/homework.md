@@ -27,3 +27,14 @@ Optional:
 
 - [Ansible documentation](https://docs.ansible.com/ansible/latest/index.html)
 - Google it!
+
+
+## Do not use your username in password
+
+Task:
+1. Create and run a script (Ansible playbook) to harden users’ passwords
+by rejecting the ones that contain a username. Enforce this rule for ‘root’
+as well.
+2. [Optional] Try to implement the same hardening rule without PAM.
+3. Write a report in Google Doc providing the playbook’s code and proof of
+workability (screenshots or asciinema recording)

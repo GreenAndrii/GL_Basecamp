@@ -5,3 +5,6 @@ ansible/inventory.yml
 venv/
 .vscode
 Temp
+k8s/fluentbit/ds-dnstest.yaml
+k8s/kibana/map_kibana.yaml
+k8s/kibana/service_API_kibana.yaml
