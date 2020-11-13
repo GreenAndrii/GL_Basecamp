@@ -1,0 +1,8 @@
+---
+# Homework for GL Basecamp DevOps hardening password
+- name: Homework for GL Basecamp DevOps
+  become: yes
+  hosts: all  
+  roles:
+    - { role: use_pamd, when: "'group_0' in group_names" }
+    - { role: without_pamd, when: "'group_1' in group_names" }

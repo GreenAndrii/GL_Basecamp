@@ -1,0 +1,16 @@
+---
+# tasks file for validate input password with pam ansible module
+
+- name: Install libpam-pwquality
+  package:
+    name: libpam-pwquality
+    state: present
+
+- name: validate input password
+  pamd:
+      control: requisite 
+      name: common-password 
+      type: password
+      module_path: pam_pwquality.so
+      path: /etc/pam.d/ 
+      module_arguments: "retry=3 reject_username enforce_for_root" 

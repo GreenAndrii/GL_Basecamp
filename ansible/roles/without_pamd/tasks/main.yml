@@ -1,0 +1,24 @@
+---
+# tasks file for validate input password without pam ansible module
+- name: install pwquality
+  package:
+    name: libpam-pwquality
+    state: present
+
+- name: write pwquality.conf
+  template:
+    src: pwquality.conf.j2
+    dest: '/etc/security/pwquality.conf'
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: add to PAM config
+  lineinfile:
+    path: '/etc/pam.d/common-password'
+    regexp: '^password.*pam_pwquality\.so'
+    insertbefore: '^password.*pam_unix\.so'
+    line: "password\trequisite\t\t\tpam_pwquality.so"
+    owner: root
+    group: root
+    mode: '0644'
