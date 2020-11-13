@@ -4,11 +4,15 @@ group_${id}:
     host_${id}:
       ansible_host: ${hw1_stack["${id}"]}
 %{ endfor ~}
-
 iaas:
   children:
+%{ if count > 1 }
+%{ for id_iaas in range(2) ~}
+    group_${id_iaas}:
+%{ endfor ~}
+%{ else }
     group_0:
-    group_1:
+%{ endif }
 
 all:
   vars:
