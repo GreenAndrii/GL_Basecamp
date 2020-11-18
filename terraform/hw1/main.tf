@@ -17,12 +17,7 @@ data "aws_ami" "latest-ubuntu" {
 
   filter {
     name   = "name"
-    values = ["*ubuntu-focal-20.04-amd64-server-*"] # or "*ubuntu-bionic-18.04-amd64-server-*"
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server.*"] # or "*ubuntu-bionic-18.04-amd64-server-*"
   }
 }
 
