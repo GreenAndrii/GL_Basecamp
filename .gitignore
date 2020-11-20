@@ -8,3 +8,6 @@ Temp
 k8s/fluentbit/ds-dnstest.yaml
 k8s/kibana/map_kibana.yaml
 k8s/kibana/service_API_kibana.yaml
+bash/games
+bash/questions
+bash/pass11LVL
