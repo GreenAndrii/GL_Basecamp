@@ -14,16 +14,14 @@ if [[ $(expr index $A '.') -eq 0 && $(expr index $B '.') -eq 0 &&  "$operation" 
     [[ $dot_A -ge $dot_B ]] && dot_comm=$dot_A || dot_comm=$dot_B
     A=$(echo $A | sed 's/^0\{1,\}\.\{0,1\}//' | tr -d '.') #cut zeros at the begining and dot
     B=$(echo $B | sed 's/^0\{1,\}\.\{0,1\}//' | tr -d '.')
+    [[ $A == "-08" || $A == "-09" ]] && A=$(echo $A | tr -d '0')  #костыль для -0.8 -0.9 
+    [[ $B == "-08" || $B == "-09" ]] && B=$(echo $B | tr -d '0')
     case "$operation" in
       '+'|'-')
           printf %\."$dot_comm"f "$(expr $((10#$A * 10 ** $add_A)) "$operation" $((10#$B * 10 ** $add_B)))e-$DIGITS";;
       '*')
-			    [[ $A == "-08" || $A == "-09" ]] && A=$(echo $A | tr -d '0')
-					[[ $B == "-08" || $B == "-09" ]] && B=$(echo $B | tr -d '0')
           printf %\."$(($dot_A + $dot_B))"f "$(expr $((10#$A * 10 ** $dot_A)) "$operation" $((10#$B * 10 ** $dot_B)))e-$(($dot_A * 2 + $dot_B * 2))";;
       '/')
-			    [[ $A == "-08" || $A == "-09" ]] && A=$(echo $A | tr -d '0')
-					[[ $B == "-08" || $B == "-09" ]] && B=$(echo $B | tr -d '0')
           printf %\."$DIGITS"f "$(($((10#$A * 10 ** $add_A)) "$operation" $((10#$B))))e-$add_B";;
     esac
 fi
