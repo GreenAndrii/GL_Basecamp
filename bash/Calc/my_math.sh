@@ -20,14 +20,14 @@ if [[ $(expr index $A '.') -eq 0 && $(expr index $B '.') -eq 0 &&  "$operation" 
       '*')
           printf %\."$(($dot_A + $dot_B))"f "$(expr $((10#$A * 10 ** $dot_A)) "$operation" $((10#$B * 10 ** $dot_B)))e-$(($dot_A * 2 + $dot_B * 2))";;
       '/')
-          printf %\."$DIGITS"f "$(($((10#$A * 10 ** $add_A)) "$operation" 10#$B))e-$add_B";;
+          printf %\."$DIGITS"f "$(expr $((10#$A * 10 ** $add_A)) "$operation" $((10#$B)))e-$add_B";;
     esac
 fi
 }
 
 function help() {
   echo -e "Version: $VERSION\nEnter math expression for its calculation."
-  echo -e "use \"$0 Number1+-/*Number2\""
+  echo -e "use \"$0 Number1[+-/*]Number2\""
 }
 
 rpn() {
