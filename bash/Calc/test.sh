@@ -22,7 +22,7 @@ for test in ${expression}; do
 	if [[ "$result1" =~ $REG_NUMBER && "$result2" =~ $REG_NUMBER ]]; then
 	  result="$GREEN  EQUAL  $RESET" 
   else 
-    result="$RED   VARIOS  $RESET" 
+    result="$RED  DIFFERENT  $RESET" 
 	fi
   echo -e "My result: "${result1} "\t\tSample: $YELLOW ${result2} $RESET \t\t$result" 
 done
