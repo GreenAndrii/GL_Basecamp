@@ -1,4 +1,62 @@
 # math function for Calc
+function exp_to_rpn (){
+local input=$1
+declare -a rpn_data
+declare -a rpn_oper
+declare -A oper_value=( ['+']=2 ['-']=2 ['*']=3 ['/']=3 )
+while [[ -n $input ]];
+do
+  if [[ "$input" =~ $REG_NUMBER ]]; 
+    then
+      rpn_data+=("${BASH_REMATCH[1]}")
+  elif [[ "$input" =~ $REG_OPERATOR ]]; 
+    then
+      if [[ ${#rpn_oper[@]} -le 0 ]];
+        then
+          rpn_oper+=("${BASH_REMATCH[1]}")
+        else
+          case "${BASH_REMATCH[1]}" in
+            '(')
+                rpn_oper+=("${BASH_REMATCH[1]}");;
+            ')')
+                for ((i=${#rpn_oper[@]}-1; i>=0; i--));
+                do
+                  while [[ "${rpn_oper[-1]}" != '(' ]];
+                  do
+                    rpn_data+=("${rpn_oper[-1]}") && unset 'rpn_oper[${#rpn_oper[@]}-1]'
+                  done
+                unset rpn_oper[${#rpn_oper[@]}-1]
+                break
+                done;;
+        '*'|'/')
+                if [[ ${oper_value["${BASH_REMATCH[1]}"]} -gt ${oper_value["${rpn_oper[-1]}"]} ]];
+                  then
+                    rpn_oper+=("${BASH_REMATCH[1]}")
+                  else
+                    rpn_data+=("${rpn_oper[-1]}") && unset rpn_oper[${#rpn_oper[@]}-1]
+										rpn_oper+=("${BASH_REMATCH[1]}")
+                fi;;
+        '-'|'+')
+                if [[ ${oper_value["${BASH_REMATCH[1]}"]} -le ${oper_value["${rpn_oper[-1]}"]} ]];
+                  then
+                    rpn_data+=("${rpn_oper[-1]}") && unset "rpn_oper[${#rpn_oper[@]}-1]"
+                    rpn_oper+=("${BASH_REMATCH[1]}")
+                  else
+                    rpn_oper+=("${BASH_REMATCH[1]}")
+                fi;;
+          esac
+      fi
+  fi
+  input="${input:${#BASH_REMATCH[1]}:${#input}}"
+done
+for ((i=${#rpn_oper[@]}-1; i>=0; i--));
+do
+  rpn_data+=("${rpn_oper[-1]}")  && unset rpn_oper[${#rpn_oper[@]}-1]
+done
+echo $(rpn "${rpn_data[@]}")
+}
+
+
 function MY_MATH_FLOAT(){
 local A=$1
 local operation=$2
@@ -33,45 +91,46 @@ function help() {
 }
 
 rpn() {
-    local A B stack
+    local O1 O2 stack
 
     while [ $# -ge 1 ]; do
         grep -iE '^-?[0-9]+$' <<< "$1" > /dev/null 2>&1
         if [ "$?" -eq 0 ]; then
             stack=`sed -e '$a'"$1" -e '/^$/d' <<< "$stack"`
         else
-            grep -iE '^[\/+*-]$' <<< "$1" > /dev/null 2>&1
+            grep -iE '^[-\+\*\/\%\^]$' <<< "$1" > /dev/null 2>&1
             if [ "$?" -eq 0 ]; then
-                B=`sed -n '$p' <<< "$stack"`
+                O2=`sed -n '$p' <<< "$stack"`
                 stack=`sed '$d' <<< "$stack"`
-                A=`sed -n '$p' <<< "$stack"`
+                O1=`sed -n '$p' <<< "$stack"`
 
                 case "$1" in
                     '+')
-                        stack=`sed -e '$a'"$(($A + $B))" -e '/^$/d' -e '$d' \
+                        stack=`sed -e '$a'"$(($O1 + $O2))" -e '/^$/d' -e '$d' \
                             <<< "$stack"`;;
                     '-')
-                        stack=`sed -e '$a'"$(($A - $B))" -e '/^$/d' -e '$d' \
+                        stack=`sed -e '$a'"$(($O1 - $O2))" -e '/^$/d' -e '$d' \
                             <<< "$stack"`;;
                     '*')
-                        stack=`sed -e '$a'"$(($A * $B))" -e '/^$/d' -e '$d' \
+                        stack=`sed -e '$a'"$(($O1 * $O2))" -e '/^$/d' -e '$d' \
                             <<< "$stack"`;;
                     '/')
-                        stack=`sed -e '$a'"$(($A / $B))" -e '/^$/d' -e '$d' \
+                        stack=`sed -e '$a'"$(($O1 / $O2))" -e '/^$/d' -e '$d' \
                             <<< "$stack"`;;
-                    
+                    '%')
+                        stack=`sed -e '$a'"$(($O1 % $O2))" -e '/^$/d' -e '$d' \
+                            <<< "$stack"`;;
                 esac
             else
                 echo "Unknown RPN token \`\`$1''"
             fi
         fi
-        echo "$1" ":" $stack
+#        echo "$1" ":" $stack
         shift
     done
-    
     sed -n '1p' <<< "$stack"
     if [ "`wc -l <<< "$stack"`" -gt 1 ]; then
-        echo "Strange input expression" > /dev/stderr
+        echo "Malformed input expression" > /dev/stderr
         return 1
     else
         return 0
