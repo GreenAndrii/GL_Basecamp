@@ -94,7 +94,7 @@ rpn() {
     local O1 O2 stack
 
     while [ $# -ge 1 ]; do
-        grep -iE '^-?[0-9]+$' <<< "$1" > /dev/null 2>&1
+        grep -iE '^-?[0-9]+\.?[0-9]*$' <<< "$1" > /dev/null 2>&1
         if [ "$?" -eq 0 ]; then
             stack=`sed -e '$a'"$1" -e '/^$/d' <<< "$stack"`
         else
@@ -106,19 +106,16 @@ rpn() {
 
                 case "$1" in
                     '+')
-                        stack=`sed -e '$a'"$(($O1 + $O2))" -e '/^$/d' -e '$d' \
+                        stack=`sed -e '$a'"$(MY_MATH_FLOAT $O1 + $O2)" -e '/^$/d' -e '$d' \
                             <<< "$stack"`;;
                     '-')
-                        stack=`sed -e '$a'"$(($O1 - $O2))" -e '/^$/d' -e '$d' \
+                        stack=`sed -e '$a'"$(MY_MATH_FLOAT $O1 - $O2)" -e '/^$/d' -e '$d' \
                             <<< "$stack"`;;
                     '*')
-                        stack=`sed -e '$a'"$(($O1 * $O2))" -e '/^$/d' -e '$d' \
+                        stack=`sed -e '$a'"$(MY_MATH_FLOAT $O1 '*' $O2)" -e '/^$/d' -e '$d' \
                             <<< "$stack"`;;
                     '/')
-                        stack=`sed -e '$a'"$(($O1 / $O2))" -e '/^$/d' -e '$d' \
-                            <<< "$stack"`;;
-                    '%')
-                        stack=`sed -e '$a'"$(($O1 % $O2))" -e '/^$/d' -e '$d' \
+                        stack=`sed -e '$a'"$(MY_MATH_FLOAT $O1 / $O2)" -e '/^$/d' -e '$d' \
                             <<< "$stack"`;;
                 esac
             else
