@@ -5,7 +5,7 @@ source my_math.sh
 input=$(echo "$*" | tr -d '[:space:]') # delete all spaces
 if [[ ! $input =~ $REG_ERROR ]] && [[ $input  =~ $REG_POL ]];
 	then
-		echo -e $GREEN"$(exp_to_rpn $1)"$RESET
+		echo -e $GREEN"$(exp_to_rpn $input)"$RESET
 		exit 0
 	else
 		echo -e $RED$ERROR$RESET
