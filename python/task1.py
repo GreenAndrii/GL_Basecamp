@@ -5,20 +5,18 @@
 удовлетворяет требованиям: число не целое или вообще не является числом. 
 Нули в начале записи числа не учитывать, если таковые имеются.
 """
-import re
+from re import match
 
 
 def count_holes():
-    hole1 = [4, 6, 9, 0, ]
-    hole2 = [8, ]
     count = 0
     numbers = input("Enter number: ")
-    result = re.match(r'^0*([0-9]+)$', numbers)
+    result = match(r'^0*([0-9]+)$', numbers)
     if result:
         for i in result.group(1):
-            if int(i) in hole1:
+            if int(i) in [4, 6, 9, 0, ]:
                 count += 1
-            elif int(i) in hole2:
+            elif int(i) == 8:
                 count += 2
         return count
     else:
