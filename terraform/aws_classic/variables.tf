@@ -13,5 +13,9 @@ variable "ssh_user" {
 }
 
 variable "instance_count" {
-	default = "2"
+  default = "2"
+}
+
+variable "destinationCIDRblock" {
+  default = "0.0.0.0/0"
 }

@@ -1,4 +1,4 @@
-# nginx default infrastucture
+# nginx default infrastructure
 /*
 - add VPC
 - add subnets in different availability zones
