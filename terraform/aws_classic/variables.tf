@@ -1,10 +1,10 @@
 variable "region" {
-  default = "us-west-1"
+  default = "eu-central-1"
 }
 
 variable "key_name" {
   description = "Name of key pair"
-  default     = "basecamp_us_west_1"
+  default     = "basecamp"
 }
 
 variable "ssh_user" {
