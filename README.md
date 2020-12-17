@@ -1,3 +1,3 @@
 # GL_Basecamp
 
-This repository contains all homewokrs DevOps GL Basecamp october-december 2020
+This repository contains all homeworks DevOps GL Basecamp october-december 2020
